@@ -1,0 +1,118 @@
+syntax = "proto3";
+
+package token_stream;
+
+enum TokenStandard{
+    UNKNOWN = 0;
+    ERC20 = 1;
+    ERC721 = 2;
+    ERC1155 = 3;
+    BASE_TOKEN = 4;
+}
+
+enum Source {
+    CALL = 0;
+    LOG = 1;
+}
+
+message Transfers{
+    repeated Transfer transfers = 1;
+    repeated ERC1155TransferBatch erc1155_transfer_batchs = 2;
+    repeated ERC1155TransferSingle erc1155_transfer_singles = 3;
+}
+
+message Transfer{
+    string transaction_hash = 1;
+    uint32 log_index = 2;
+    uint32 call_index =3;
+    uint32 call_depth =4;
+    Source source =5;
+    string chain_id = 6;
+    string token_address = 7;
+    string token_id = 8;
+    string operator = 9;
+    string from = 10;
+    string to = 11;
+    string amount = 12;
+    optional TokenStandard token_type = 13;
+    uint64 block_number = 14;
+    uint64 block_timestamp = 15;
+    optional string balance_from = 16;
+    optional string balance_to = 17;
+    optional string name = 18;
+    optional string symbol = 19;
+    optional uint64 decimals = 20;
+}
+
+message ERC1155TransferBatch{
+    string transaction_hash = 1;
+    uint32 log_index = 2;
+    Source source =3;
+    string chain_id = 4;
+    string token_address = 5;
+    repeated string token_ids = 6;
+    string operator = 7;
+    string from = 8;
+    string to = 9;
+    repeated string amounts = 10;
+    TokenStandard token_type = 11;
+    uint64 block_number = 12;
+    uint64 block_timestamp = 13;
+}
+
+message ERC1155TransferSingle{
+    string transaction_hash = 1;
+    uint32 log_index = 2;
+    Source source =3;
+    string chain_id = 4;
+    string token_address = 5;
+    string token_id = 6;
+    string operator = 7;
+    string from = 8;
+    string to = 9;
+    string amount = 10;
+    TokenStandard token_type = 11;
+    uint64 block_number = 12;
+    uint64 block_timestamp = 13;
+    optional string balance_from = 14;
+    optional string balance_to = 15;
+}
+
+message Tokens {
+  repeated Token tokens = 1;
+}
+
+message Token {
+  string chain_id = 1;
+  string token_address = 2;
+  TokenStandard token_type = 3;
+  string deployment_transaction_hash = 4;
+  uint64 deployment_block = 5;
+  uint64 deployment_timestamp = 6;
+  string deployer = 7;
+  optional string name = 8;
+  optional string symbol = 9;
+  optional uint64 decimals = 10;
+  optional string base_uri = 11;
+  optional string contract_metadata_uri = 12;
+  string balance_from = 13;
+  string balance_to = 14;
+}
+
+message Balance {
+    string address = 1;
+    uint64 decimals = 2;
+    string name = 3;
+    string symbol = 4;
+    string contract_address = 5;
+    TokenStandard token_type = 6;
+    optional string logo_url = 7;
+    uint64 block_timestamp = 8;
+    optional string token_kind = 9;
+    string balance = 10;
+    optional string balance_24h = 11;
+    optional string quote_rate = 12;
+    optional string quote_rate_24h = 13;
+    optional string nft_data = 14;
+    string chain_id = 15;
+}
