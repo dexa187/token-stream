@@ -19,7 +19,14 @@ substreams run -e mainnet.eth.streamingfast.io:443 substreams.yaml map_transfers
 #### jsonout
 
 Run using sinkfiles
+Mainnet
 
 ```
 substreams-sink-files run --encoder=lines --state-store=./output/state.yaml mainnet.eth.streamingfast.io:443 substreams.yaml jsonout ./output/files
+```
+
+Polygon
+
+```
+substreams-sink-files run --encoder=lines --state-store=./output/state.yaml polygon.streamingfast.io:443 substreams.yaml jsonout ./output/files
 ```
